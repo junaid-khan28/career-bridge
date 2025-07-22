@@ -23,11 +23,9 @@ const SignIn = () => {
 
   return (
     <div id="auth-page">
-      <form id="signIn-form"> 
+      <form id="signIn-form">
         <div className="signIn-header">
-          <div>
-            <img src={logo_img} alt="career-bridge" />
-          </div>
+          <img src={logo_img} alt="career-bridge" />
           <h2>Create Account</h2>
         </div>
         <div className="signIn-input-container">
