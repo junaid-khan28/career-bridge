@@ -3,14 +3,20 @@
   "module": "index.js",
   "private": true,
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "bun run index.js",
+    "dev": "bun --watch index.js"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3"
   },
   "dependencies": {
+    "bun": "^1.2.19",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.3",
     "nodemon": "^3.1.10"
   }
