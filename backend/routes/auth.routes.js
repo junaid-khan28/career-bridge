@@ -9,13 +9,13 @@ const passwordRegEx =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
 router.post("/signin", async (req, res) => {
-  let { name, password, email } = req.query || req.body;
+  let { name, password, email } = req.body;
 
   name = name?.trim().toLowerCase();
   password = password?.trim();
   email = email?.trim();
 
-  if (!name && !password && !email) {
+  if (!name || !password || !email) {
     return res.status(400).json({ message: "Fill the details" });
   }
 
@@ -31,7 +31,7 @@ router.post("/signin", async (req, res) => {
   }
 
   try {
-    const isUserExist = req.cookies.careerBrige && await Sign.findOne({ email });
+    const isUserExist = await Sign.findOne({ email });
 
     if (!isUserExist) {
       const passwordHashed = await Bun.password.hash(password);
@@ -42,9 +42,8 @@ router.post("/signin", async (req, res) => {
         {
           userId: newUser._id,
           email: newUser.email,
-          name: newUser.name
         },
-        process.JWT_SECRET,
+        process.env.JWT_SECRET,
         { expiresIn: '24h' }
       );
 
@@ -57,12 +56,7 @@ router.post("/signin", async (req, res) => {
       });
 
       return res.status(201).json({
-        message: "Welcome to Career-Bridge",
-        user: {
-          id: newUser._id,
-          name: newUser.name,
-          email: newUser.email
-        }
+        message: "Welcome to Career-Bridge"
       });
     } else {
       return res.status(409).json({ message: "User already exist" });
@@ -99,9 +93,8 @@ router.post('/login', async (req, res) => {
       {
         userId: user._id,
         email: user.email,
-        name: user.name
       },
-      process.JWT_SECRET,
+      process.env.JWT_SECRET,
       { expiresIn: '24h' }
     );
 

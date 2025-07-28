@@ -18,5 +18,6 @@ const signInSchema = new mongoose.Schema({
   },
 });
 
+
 const Sign = mongoose.model("Sign", signInSchema);
 module.exports = Sign;
