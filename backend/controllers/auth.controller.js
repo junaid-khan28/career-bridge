@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Sign = require("../models/auth.models");
+const Sign = require("../models/auth.model");
 const Bun = require("bun");
 const jwt = require("jsonwebtoken");
 
@@ -8,7 +8,7 @@ const emailRegEx = /.+\@.+\..+/;
 const passwordRegEx =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-router.post("/signin", async (req, res) => {
+exports.signUp = async (req, res) => {
   let { name, password, email } = req.body;
 
   name = name?.trim().toLowerCase();
@@ -64,10 +64,10 @@ router.post("/signin", async (req, res) => {
   } catch (err) {
     return res.status(500).json({ message: `Failed to create account ${err}` });
   }
-});
+}
 
 
-router.post('/login', async (req, res) => {
+exports.login = async (req, res) => {
   let { email, password } = req.body || req.query;
 
   email = email?.trim();
@@ -112,7 +112,5 @@ router.post('/login', async (req, res) => {
   } catch (err) {
     return res.status(500).json({ message: `Login failed: ${err.message}` });
   }
-});
+}
 
-
-module.exports = router;

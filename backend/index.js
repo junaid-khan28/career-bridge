@@ -7,8 +7,6 @@ require("dotenv").config();
 const app = express();
 connectDB();
 
-// import routes
-const signRoutes = require("./routes/auth.routes");
 
 // middlewares
 app.use(cors());
@@ -16,8 +14,15 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// routes
-app.use("/", signRoutes);
+
+// import routes 
+const authRouter = require("./routes/auth.route");
+const jobsRouter = require("./routes/jobs.route");
+
+
+// mount it with route prefix 
+app.use("/auth", authRouter);
+app.use("/jobs", jobsRouter);
 
 
 app.listen(3000, () => {
