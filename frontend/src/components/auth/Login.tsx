@@ -1,9 +1,15 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Github, Mail, Lock, LogIn, KeyRound } from "lucide-react";
 
@@ -60,7 +66,10 @@ const Login = () => {
         <CardContent className="space-y-6">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2 relative">
-              <Label htmlFor="email" className="text-sm font-medium flex items-center gap-2">
+              <Label
+                htmlFor="email"
+                className="text-sm font-medium flex items-center gap-2"
+              >
                 <Mail className="h-4 w-4 text-primary" />
                 Email
               </Label>
@@ -78,7 +87,10 @@ const Login = () => {
             </div>
 
             <div className="space-y-2 relative">
-              <Label htmlFor="password" className="text-sm font-medium flex items-center gap-2">
+              <Label
+                htmlFor="password"
+                className="text-sm font-medium flex items-center gap-2"
+              >
                 <Lock className="h-4 w-4 text-primary" />
                 Password
               </Label>
@@ -104,8 +116,8 @@ const Login = () => {
               </Link>
             </div>
 
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               className="w-full h-12 bg-gradient-primary hover:shadow-glow transition-all duration-300 font-semibold text-lg relative overflow-hidden group"
             >
               <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -145,7 +157,9 @@ const Login = () => {
           </div>
 
           <div className="text-center text-sm pt-4 border-t">
-            <span className="text-muted-foreground">Don't have an account? </span>
+            <span className="text-muted-foreground">
+              Don't have an account?{" "}
+            </span>
             <Link
               to="/signup"
               className="text-primary hover:text-primary-glow font-semibold hover:underline transition-colors duration-200"
