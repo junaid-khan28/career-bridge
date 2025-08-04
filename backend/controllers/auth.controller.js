@@ -1,4 +1,3 @@
-const router = require("express").Router();
 const Sign = require("../models/auth.model");
 const Bun = require("bun");
 const jwt = require("jsonwebtoken");

@@ -12,26 +12,9 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Github, Mail, Lock, LogIn, KeyRound } from "lucide-react";
-import axios from "axios";
-import { UserLoginPropTypes } from "@/types/interface";
+import { submitAction } from "@/utils/login.asyncfn";
 
-interface ActionState {
-  message: string;
-}
-
-const submitAction = async (
-  _: ActionState,
-  formData: FormData
-): Promise<ActionState> => {
-  const values: UserLoginPropTypes = {
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
-  };
-
-  const response = await axios.post("http://localhost:3000/login", values);
-  return { message: response.data.message };
-};
-
+// login component starts from here
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -46,12 +29,6 @@ const Login = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Login form submitted:", formData);
-    // Frontend only - no actual login logic
   };
 
   const handleGoogleLogin = () => {
@@ -86,11 +63,7 @@ const Login = () => {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <form
-            onSubmit={handleSubmit}
-            action={formAction}
-            className="space-y-4"
-          >
+          <form action={formAction} className="space-y-4">
             <div className="space-y-2 relative">
               <Label
                 htmlFor="email"
