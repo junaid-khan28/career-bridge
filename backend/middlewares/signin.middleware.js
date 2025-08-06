@@ -1,4 +1,6 @@
-export const verifyToken = (req, res, next) => {
+const jwt = require('jsonwebtoken');
+
+const verifyToken = (req, res, next) => {
     const token = req.cookies.careerBridge;
 
     if (!token) {
@@ -6,10 +8,12 @@ export const verifyToken = (req, res, next) => {
     }
 
     try {
-        const decoded = jwt.verify(token, JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decoded;
         next();
     } catch (err) {
         return res.status(403).json({ message: "Invalid token." });
     }
 };
+
+module.exports = { verifyToken };

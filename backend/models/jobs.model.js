@@ -16,6 +16,6 @@ const allListedJobs = new mongoose.Schema({
 });
 
 const allListedJobsPage = mongoose.model('jobs', allListedJobs);
-module.exports = allListedJobs;
+module.exports = allListedJobsPage;
 
 

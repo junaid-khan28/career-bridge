@@ -6,26 +6,27 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Github, Mail, User, Lock, Sparkles, Shield } from "lucide-react";
+import { signupSubmitAction } from "@/utils/login.asyncfn";
+import { useActionState } from "react";
 
 const Signup = () => {
+  const [state, formAction, isPending] = useActionState(signupSubmitAction, {
+    message: "",
+  });
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
 
+  
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Signup form submitted:", formData);
-    // Frontend only - no actual signup logic
-  };
+  }
 
   const handleGoogleSignup = () => {
     console.log("Google signup clicked");
@@ -59,7 +60,7 @@ const Signup = () => {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form action={formAction} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="name" className="text-sm font-medium flex items-center gap-2">
                 <User className="h-4 w-4 text-primary" />
@@ -122,6 +123,14 @@ const Signup = () => {
               <Shield className="mr-2 h-5 w-5" />
               Create Account
             </Button>
+
+            {state.message && (
+              <div className="text-center text-sm mt-2">
+                <span className={state.message.includes('successful') ? 'text-green-600' : 'text-red-600'}>
+                  {state.message}
+                </span>
+              </div>
+            )}
           </form>
 
           <div className="relative">

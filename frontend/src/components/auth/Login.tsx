@@ -12,16 +12,17 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Github, Mail, Lock, LogIn, KeyRound } from "lucide-react";
-import { submitAction } from "@/utils/login.asyncfn";
+import { authSubmitAction } from "@/utils/login.asyncfn";
 
 // login component starts from here
 const Login = () => {
+  const [state, formAction] = useActionState(authSubmitAction, {
+    message: "",
+  });
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-  });
-  const [_, formAction] = useActionState(submitAction, {
-    message: "",
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -123,6 +124,14 @@ const Login = () => {
               <LogIn className="mr-2 h-5 w-5" />
               Sign In
             </Button>
+
+            {state.message && (
+              <div className="text-center text-sm mt-2">
+                <span className={state.message.includes('successful') ? 'text-green-600' : 'text-red-600'}>
+                  {state.message}
+                </span>
+              </div>
+            )}
           </form>
 
           <div className="relative">
